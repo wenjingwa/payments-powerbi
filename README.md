@@ -30,7 +30,7 @@ Reporting cutoff is 18 August 2026, so the last month is incomplete and is flagg
 
 Five source tables (50k transactions, 1.5k merchants, 1.5k salespersons, 4.4k onboarding events, 2.1k FX rates) shaped in Power Query into a star schema:
 
-![Portfolio Pricing](screenshots/00-data-model.png)
+![Data Model](screenshots/00-data-model.png)
 
 Transformations done in Power Query (as the case required):
 
