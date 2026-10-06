@@ -30,7 +30,7 @@ Reporting cutoff is 18 August 2026, so the last month is incomplete and is flagg
 
 Five source tables (50k transactions, 1.5k merchants, 1.5k salespersons, 4.4k onboarding events, 2.1k FX rates) shaped in Power Query into a star schema:
 
-<!-- TODO: add a screenshot of the model view: screenshots/00-data-model.png -->
+![Portfolio Pricing](screenshots/00-data-model.png)
 
 Transformations done in Power Query (as the case required):
 
@@ -56,8 +56,6 @@ Transformations done in Power Query (as the case required):
 
 ### Selected DAX
 
-<!-- TODO: paste 3 or 4 measures from the model. Suggested: Portfolio Rate, Revenue YTD Growth %, Median LT Days Sold to Installed, Installed Within 21 Days %. Keep the ones that show a deliberate choice (volume weighting, handling the incomplete month, cohort logic). -->
-
 ```dax
 Portfolio Rate =
 CALCULATE(
@@ -66,6 +64,18 @@ CALCULATE(
     SUM(Transactions[amount_eur])),
     Transactions[status] = "APPROVED", Transactions[event_type] = "SALE" 
 )
+
+Median LT Days Onboarding to Installed = 
+CALCULATE (
+    MEDIAN ( Merchants[LTOnboardingToInstalled] ),
+    TREATAS ( VALUES ( 'Date'[Date] ), Merchants[Sold] )
+)
+
+Installed Within 21 Days % = 
+DIVIDE (
+    CALCULATE ( [Merchants Sold],
+        Merchants[is_installed] = TRUE (), Merchants[LTSoldToInstalled] <= 21 ),
+    [Merchants Sold] )
 
 Merchants Sold = 
 CALCULATE (
