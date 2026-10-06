@@ -1,6 +1,6 @@
 # Payments Portfolio Analytics in Power BI
 
-BI analysis case for a fictional European payments provider ("Aster Lane Payments"). Five business questions, one Power BI report, one stakeholder presentation.
+BI analysis case for a fictional European payments provider ("Aster Lane Payments"). Five business questions (portfolio pricing, revenue, surcharge, sales productivity and onboarding), one Power BI report, one stakeholder presentation.
 
 All data is synthetic and was supplied with the case. No real company data is included.
 
