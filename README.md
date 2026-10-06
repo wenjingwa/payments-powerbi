@@ -60,7 +60,24 @@ Transformations done in Power Query (as the case required):
 
 ```dax
 Portfolio Rate =
--- paste here
+CALCULATE(
+    DIVIDE(
+    SUMX(Transactions, Transactions[amount_eur]*Transactions[rate_bps]),
+    SUM(Transactions[amount_eur])),
+    Transactions[status] = "APPROVED", Transactions[event_type] = "SALE" 
+)
+
+Merchants Sold = 
+CALCULATE (
+    COUNTROWS ( Merchants ),
+    TREATAS ( VALUES ( 'Date'[Date] ), Merchants[Sold] )
+)
+
+Share of Merchants % = 
+DIVIDE (
+    [Merchants Sold],
+    CALCULATE ( [Merchants Sold], REMOVEFILTERS ( Merchants[onboarding_note] ) )
+)
 ```
 
 ## Report design
